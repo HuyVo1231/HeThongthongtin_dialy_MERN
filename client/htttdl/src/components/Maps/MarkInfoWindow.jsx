@@ -4,7 +4,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PhoneIcon from '@mui/icons-material/Phone'
 import { Description as DescriptionIcon, Store as StoreIcon } from '@mui/icons-material'
 import StatisticDialog from './Statistics/StatisticDialog'
-import useStatistics from '../../hooks/useStatistics'
+import useMarkInfoWindow from '../../hooks/useMarkInfoWindow'
 
 const infoWindowStyles = {
   container: {
@@ -59,23 +59,8 @@ const MarkInfoWindow = ({
   handleEditClick,
   handleDeleteMarker
 }) => {
-  const { statistics, getStatistics, setStatistics, open, setOpen, handleStatisticClose } =
-    useStatistics()
-
-  const updateStatistics = (newStatistics) => {
-    setStatistics(newStatistics)
-  }
-
-  const handleOpenStatistic = async () => {
-    setOpen(true)
-
-    try {
-      const newStatistics = await getStatistics(selectedMarker.id)
-      updateStatistics(newStatistics)
-    } catch (error) {
-      console.error('Error fetching statistics:', error)
-    }
-  }
+  const { statistics, open, handleOpenStatistic, handleStatisticClose, updateStatistics } =
+    useMarkInfoWindow(selectedMarker)
 
   return (
     <Box>
