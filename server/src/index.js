@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-const port = 3000
 const route = require('./routes/')
 const cors = require('cors')
 
@@ -22,6 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Route init
 route(app)
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`)
+app.listen(process.env.DB_PORT, () => {
+  console.log(`Server is running on port ${process.env.DB_PORT}`)
 })
