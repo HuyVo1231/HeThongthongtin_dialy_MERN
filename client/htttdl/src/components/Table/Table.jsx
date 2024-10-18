@@ -8,7 +8,15 @@ import {
   Button
 } from '@mui/material'
 
-const ReusableTable = ({ headers, data, onEdit, onDelete, edit = false }) => {
+const ReusableTable = ({
+  headers,
+  viewDetails = false,
+  data,
+  onEdit,
+  onDelete,
+  edit = false,
+  onRowClick
+}) => {
   return (
     <Paper>
       <MuiTable>
@@ -18,6 +26,7 @@ const ReusableTable = ({ headers, data, onEdit, onDelete, edit = false }) => {
               <TableCell key={header}>{header}</TableCell>
             ))}
             {edit && <TableCell>Actions</TableCell>}
+            {viewDetails && <TableCell>Chi tiết</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -26,7 +35,7 @@ const ReusableTable = ({ headers, data, onEdit, onDelete, edit = false }) => {
               {Object.values(row).map((cell, cellIndex) => (
                 <TableCell key={cellIndex}>{cell}</TableCell>
               ))}
-              {edit && ( // Chỉ hiển thị nút khi `edit` là true
+              {edit && ( // Chỉ hiển thị nút Edit và Delete khi `edit` là true
                 <TableCell sx={{ display: 'flex' }}>
                   <Button
                     onClick={() => onEdit(row)}
@@ -42,6 +51,13 @@ const ReusableTable = ({ headers, data, onEdit, onDelete, edit = false }) => {
                     aria-label='delete'
                     style={{ marginLeft: '8px' }}>
                     Delete
+                  </Button>
+                </TableCell>
+              )}
+              {viewDetails && (
+                <TableCell>
+                  <Button onClick={() => onRowClick(row)} variant='contained' color='info'>
+                    Xem chi tiết
                   </Button>
                 </TableCell>
               )}

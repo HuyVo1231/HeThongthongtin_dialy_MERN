@@ -151,7 +151,7 @@ function Navbar() {
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
-                  alt='Remy Sharp'
+                  alt='Avatar'
                   src='https://scontent.fvkg1-1.fna.fbcdn.net/v/t39.30808-6/456565160_2378560125685113_4661371891541731314_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeFTiWp8fuc8NZxhTEIzYJQOXblqJxQcyJ1duWonFBzInXGGcVbER2jSoLdRGoKS6DgMQKpNAvBd9CbP1oLZ0h8i&_nc_ohc=-wcmmn-AuIwQ7kNvgFvVFQY&_nc_ht=scontent.fvkg1-1.fna&_nc_gid=Ar9jglpLdlYQtuQj2O-gW8H&oh=00_AYAdJE87xTgy99NrIMVHtAbgFJsQyF4Q5rbyJ_o5k7IY9g&oe=670D6214'
                 />
               </IconButton>

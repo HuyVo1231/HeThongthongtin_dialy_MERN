@@ -3,8 +3,7 @@ import { Box, Button, Typography, CardMedia, Card } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PhoneIcon from '@mui/icons-material/Phone'
 import { Description as DescriptionIcon, Store as StoreIcon } from '@mui/icons-material'
-import { useState } from 'react'
-import StatisticDialog from './StatisticDialog'
+import StatisticDialog from './Statistics/StatisticDialog'
 import useStatistics from '../../hooks/useStatistics'
 
 const infoWindowStyles = {
@@ -60,20 +59,22 @@ const MarkInfoWindow = ({
   handleEditClick,
   handleDeleteMarker
 }) => {
-  const { statistics, getStatistics, setStatistics } = useStatistics()
-  const [open, setOpen] = useState(false)
-
-  const handleOpenStatistic = () => {
-    getStatistics(selectedMarker.id)
-    setOpen(true)
-  }
+  const { statistics, getStatistics, setStatistics, open, setOpen, handleStatisticClose } =
+    useStatistics()
 
   const updateStatistics = (newStatistics) => {
     setStatistics(newStatistics)
   }
 
-  const handleStatisticClose = () => {
-    setOpen(false)
+  const handleOpenStatistic = async () => {
+    setOpen(true)
+
+    try {
+      const newStatistics = await getStatistics(selectedMarker.id)
+      updateStatistics(newStatistics)
+    } catch (error) {
+      console.error('Error fetching statistics:', error)
+    }
   }
 
   return (
@@ -123,7 +124,6 @@ const MarkInfoWindow = ({
         </Box>
       </InfoWindow>
 
-      {/* Import Dialog Component */}
       <StatisticDialog
         open={open}
         onClose={handleStatisticClose}

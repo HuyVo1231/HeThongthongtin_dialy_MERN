@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast'
 import axiosInstance from './axiosInstance'
 
 export const login = async (username, password) => {
@@ -8,6 +9,7 @@ export const login = async (username, password) => {
     })
     return response.data
   } catch (error) {
+    toast.error(error.response.data.message)
     throw new Error(error.response?.data?.message || 'Error while login')
   }
 }

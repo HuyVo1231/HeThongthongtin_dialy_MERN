@@ -1,0 +1,15 @@
+/* Tùy chỉnh nút Chọn tệp */
+/* input[type='file']::-webkit-file-upload-button {
+  padding: 5px;
+  color: red;
+  font-size: 21px;
+  background-color: #fff;
+  border: 1px solid red;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type='file']::-webkit-file-upload-button:hover {
+  background-color: red;
+  color: white;
+} */

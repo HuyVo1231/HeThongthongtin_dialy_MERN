@@ -3,3 +3,10 @@ export const validatePhoneNumber = (phoneNumber) => {
   const phoneRegex = /^0[0-9]{9,10}$/
   return phoneRegex.test(phoneNumber)
 }
+
+export const parseDate = (dateString) => {
+  // 17-10-2024
+  const [day, month, year] = dateString.split('-')
+  //2024-10-17
+  return new Date(`${year}-${month}-${day}`)
+}

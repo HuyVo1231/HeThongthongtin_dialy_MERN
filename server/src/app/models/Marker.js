@@ -155,16 +155,16 @@ const Marker = {
     // Truy vấn lấy thông tin invoices với điều kiện marker_id và khoảng thời gian
     const sql = `
     SELECT invoices.id AS invoice_id, invoices.invoice_date,  
-           invoices.total_amount, invoices.status, 
-           customers.id AS customer_id,
-           customers.name AS customer_name, 
-           employees.name AS employee_name
+          customers.name AS customer_name, 
+          employees.name AS employee_name,
+          invoices.total_amount, invoices.status, 
+          customers.id AS customer_id
     FROM invoices 
     JOIN customers ON invoices.customer_id = customers.id 
     JOIN employees ON invoices.employee_id = employees.id
     WHERE invoices.marker_id = ?
     ${dateCondition}
-    ORDER BY invoices.invoice_date DESC
+    ORDER BY invoices.invoice_date ASC
   `
 
     // Lấy danh sách invoices bằng marker_id
@@ -189,11 +189,19 @@ const Marker = {
 
       // Truy vấn lấy chi tiết của các hóa đơn dựa trên invoice_id
       const detailSql = `
-      SELECT invoice_details.*, products.name AS product_name
-      FROM invoice_details
-      JOIN products ON invoice_details.product_id = products.id
-      WHERE invoice_details.invoice_id IN (?)
-    `
+      SELECT
+            invoice_details.id,    
+            invoice_details.invoice_id,
+            products.name AS product_name,     
+            invoice_details.quantity,  
+            invoice_details.util_price, 
+            invoice_details.product_id 
+          FROM invoice_details
+          JOIN products ON invoice_details.product_id = products.id
+          WHERE invoice_details.invoice_id IN (?)
+          ORDER BY products.name ASC, invoice_details.id ASC
+        `
+
       db.query(detailSql, [invoiceIds], (err, invoiceDetails) => {
         if (err) {
           return callback(err) // Nếu có lỗi trong truy vấn chi tiết hóa đơn
