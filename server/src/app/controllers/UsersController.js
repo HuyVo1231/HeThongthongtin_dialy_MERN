@@ -1,3 +1,4 @@
+require('dotenv').config()
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 
@@ -49,7 +50,7 @@ class UsersController {
       if (results.length > 0) {
         // Nếu tìm thấy người dùng
         const accessToken = jwt.sign({ results }, process.env.JWT_ACCESS_SECRET, {
-          expiresIn: '1h'
+          expiresIn: '1d'
         })
         res.json({ message: 'Đăng nhập thành công', user: results[0], accessToken: accessToken })
       } else {
